@@ -1,2 +1,2 @@
 # bullet_webapp
-A web application implémentation of bullet journal
+A web application implementation of bullet journal
