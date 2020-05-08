@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head_block %}
+<script src="/static/js/main.js"></script>
+<link rel="stylesheet" href="/static/css/calendar.css">
+{% endblock head_block %}
+
+{% block body_block %}
+
+<div class="container">
+    <table id="calendarBtnRow" class="table">
+        <td class="calendarBtn" id="prevNextToday">
+            <button id="prevMonthBtn" type="button" class="btn btn-outline-primary"><</button>
+            <button id="nextMonthBtn" type="button" class="btn btn-outline-primary">></button>
+            <button id="todayBtn" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="True" autocomplete="off">Today</button>
+        </td>
+        <td class = "calendarBtn" id="mnthYear">
+            <button id="displayedMonthBtn" type="button" class="btn btn-link btn-lg">May</button>
+            <button id="displayedYearBtn" type="button" class="btn btn-link btn-lg">Year</button>
+        </td>
+        <td class="calendarBtn" id="switchView">
+            <button id="monthViewBtn" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="True" autocomplete="off">Month</button>
+            <button id="monthViewBtn" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="True" autocomplete="off">Week</button>
+            <button id="monthViewBtn" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="True" autocomplete="off">Day</button>
+
+        </td>
+    </table>
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock body_block %}
