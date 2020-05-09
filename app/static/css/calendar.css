@@ -1,8 +1,21 @@
 td{
     font-size: 0.75em;
 }
+
 .calendarBtn{
-    padding-bottom: 0%;
-    color: red;
-    background-color: red;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    min-width: fit-content;
+}
+
+#calendarBtnRow{
+    width: 100%;
+}
+
+#switchView{
+    text-align: right;
+}
+
+#mnthYear{
+    text-align: center;
 }
