@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block head_block %}
-<script src="/static/js/main.js"></script>
 <link rel="stylesheet" href="/static/css/calendar.css">
 {% endblock head_block %}
 
@@ -24,8 +23,7 @@
             <button id="monthViewBtn" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="True" autocomplete="off">Day</button>
         </td>
     </table>
-    <table class="table">
-
+    <table class="table" id="datesTable">
         <thead>
             <tr>
                 <th>Monday</th>
@@ -42,4 +40,7 @@
         </tbody>
     </table>
 </div>
+
+<script src="/static/js/views/calendar.js"></script>
+
 {% endblock body_block %}
