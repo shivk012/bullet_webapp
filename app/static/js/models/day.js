@@ -1,10 +1,12 @@
 // jshint esversion:6
 
 // controller for the day class
-class Day { 
-    constructor() {
-        this.date = Date;
+export default class Day { 
+    constructor(inputDate) {
+        this.dateId = inputDate;
     }
-}
+    display() {
+        return this.dateId.getDate();
+    }
 
-export { Day };
+}

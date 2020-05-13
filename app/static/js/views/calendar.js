@@ -1,6 +1,6 @@
 // jshint esversion:6
 // everything to do with /calendar page
-import { Day } from '../models/day.js';
+import  Day  from '../models/day.js';
 
 const elements = {
 	monthTable: '#datesTable',
@@ -8,8 +8,8 @@ const elements = {
 
 // On page load display the current month
 window.addEventListener('load', () => {
-    const today = new Date();
-    showDatesMonth(today.getMonth(),today.getFullYear());
+	const today = new Date();
+	showDatesMonth(today.getMonth(), today.getFullYear());
 });
 
 // Get days given a month and year. Returns array of all the dates in the format Sat Feb 01 2020 00:00:00
@@ -29,7 +29,7 @@ const getDaysMonth = (month, year) => {
 
 // Get weeks in a given month
 const getWeekCount = (daysArr, startDayOfWeek = 1) => {
-    const numDaysFirstWeek = getFirstWeekNumDays(daysArr, startDayOfWeek);
+	const numDaysFirstWeek = getFirstWeekNumDays(daysArr, startDayOfWeek);
 	// Remaining days in the month
 	const daysLeft = daysArr.length - numDaysFirstWeek;
 	// Number of weeks
@@ -51,9 +51,9 @@ const getFirstWeekNumDays = (daysArr, startDayOfWeek = 1) => {
 	// Add seven to get number of days
 	var numDaysFirstWeek = daysDifference + 7;
 	// Take remainder from 7 if the number incase number is positive
-    numDaysFirstWeek = numDaysFirstWeek === 7 ? 7 : numDaysFirstWeek % 7;
-    
-    return numDaysFirstWeek;
+	numDaysFirstWeek = numDaysFirstWeek === 7 ? 7 : numDaysFirstWeek % 7;
+
+	return numDaysFirstWeek;
 };
 
 // get day of the week for an array of days
@@ -61,20 +61,36 @@ const dayNum = (daysArr) => daysArr.map((date) => date.getDay());
 
 // Update calendar to show the dates in a month
 const showDatesMonth = (month, year, startDayOfWeek = 1) => {
-    // Get array of days
-    const days = getDaysMonth(month, year);
-    // Get number of weeks
-    const numWeeks = getWeekCount(days, startDayOfWeek);
-    // Get number of days in first week
-    const numDaysFirstWeek = getFirstWeekNumDays(days, startDayOfWeek);
-    // Loop to add days
-    for (let weekCount = 0; weekCount < numWeeks; weekCount++) {
-        $(elements.monthTable).find('tbody').append($("<tr>"));
-        for (let dayCount = 0; dayCount < 7; dayCount++) {
-            $(elements.monthTable).find('tbody').append($(`<td>${dayCount}</td>`));
+	// Get array of days
+	const days = getDaysMonth(month, year);
+	// Get number of weeks
+	const numWeeks = getWeekCount(days, startDayOfWeek);
+	// Get number of days in first week
+	const numDaysFirstWeek = getFirstWeekNumDays(days, startDayOfWeek);
+
+    //$(elements.monthTable).find('tbody').append($('</tr>'));
+    // counter to pull from days Array
+    let dayArrCount = 0;
+    for (let dayCount = 1; dayCount <= numWeeks * 7; dayCount++) {
+		// Start of week - new row
+		if ((dayCount - 1) % 7 === 0) {
+			$(elements.monthTable).find('tbody').append($('<tr>'));
         }
-        $(elements.monthTable).find('tbody').append($('</tr>'));
-    }
+		console.log(dayCount, dayArrCount, 7-numDaysFirstWeek)
+        if (dayCount > 7-numDaysFirstWeek && dayArrCount < days.length) {
+			var dateDay = new Day(new Date(days[dayArrCount]));
+			$(elements.monthTable)
+				.find('tbody')
+				.append($(`<td>${dateDay.display()}</td>`));
+			dayArrCount++;
+		} else {
+			$(elements.monthTable).find('tbody').append($(`<td>Empty</td>`));
+		}
+		// End of week - end row
+		if (dayCount % 7 === 0) {
+			$(elements.monthTable).find('tbody').append($('</tr>'));
+		}
+	}
 };
 
 export { elements, getDaysMonth, getWeekCount, getFirstWeekNumDays };
