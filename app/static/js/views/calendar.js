@@ -70,19 +70,21 @@ const showDatesMonth = (month, year, startDayOfWeek = 1) => {
 
     //$(elements.monthTable).find('tbody').append($('</tr>'));
     // counter to pull from days Array
-    let dayArrCount = 0;
+	let dayArrCount = 0;
+	// Counter to fill all rows
     for (let dayCount = 1; dayCount <= numWeeks * 7; dayCount++) {
 		// Start of week - new row
 		if ((dayCount - 1) % 7 === 0) {
 			$(elements.monthTable).find('tbody').append($('<tr>'));
-        }
-		console.log(dayCount, dayArrCount, 7-numDaysFirstWeek)
+		}
+		// Condition to check when to put first and last days
         if (dayCount > 7-numDaysFirstWeek && dayArrCount < days.length) {
 			var dateDay = new Day(new Date(days[dayArrCount]));
 			$(elements.monthTable)
 				.find('tbody')
 				.append($(`<td>${dateDay.display()}</td>`));
 			dayArrCount++;
+		// Otherwise put an empty cell
 		} else {
 			$(elements.monthTable).find('tbody').append($(`<td>Empty</td>`));
 		}
