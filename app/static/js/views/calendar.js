@@ -8,6 +8,7 @@ const elements = {
 	shownYear: '#displayedYearBtn',
 	monthSelectionList: '#monthList',
 	yearSelectionList: '#yearList',
+	monthDaysTable: '#monthDaysTable',
 };
 
 // Variable to keep hold of the state of the selected month year etc
@@ -114,6 +115,9 @@ const showDatesMonth = (month, year, startDayOfWeek = 1) => {
 	// Get number of days in first week
 	const numDaysFirstWeek = getFirstWeekNumDays(days, startDayOfWeek);
 
+	// Empty the current display
+	$(elements.monthDaysTable).find('tr').remove();
+
 	// Counter to pull from days Array
 	let dayArrCount = 0;
 	// Counter to track empty days - i.e 7 days per week so 35 'day' elements in a 5 week month
@@ -131,7 +135,9 @@ const showDatesMonth = (month, year, startDayOfWeek = 1) => {
 			// Check if enough counters for the first empty days of the week and counter less than total days
 			if (dayMonthCount > 7 - numDaysFirstWeek && dayArrCount < days.length) {
 				let dateDay = new Day(new Date(days[dayArrCount]));
-				htmlStr+=`<td class="monthDay">${dateDay.display()}</td>`;
+
+				htmlStr += `<td class="monthDay">${dateDay.display()}</td>`;
+				
 				dayArrCount++;
 			// Otherwise add an empty day
 			} else {
@@ -145,34 +151,6 @@ const showDatesMonth = (month, year, startDayOfWeek = 1) => {
 		// Append string to html
 		$(elements.monthTable).find('tbody').append(htmlStr);
 	}
-
-
-
-	// // Counter to fill all rows
-	// for (let dayCount = 1; dayCount <= numWeeks * 7; dayCount++) {
-	// 	// Start of week - new row
-	// 	if ((dayCount - 1) % 7 === 0) {
-	// 		let monthTableEle = document.getElementById(elements.monthTableBody);
-	// 		monthTableEle.innerHTML = monthTableEle.innerHTML + '<tr>';
-	// 		//$(elements.monthTable).find('tbody').append('<tr>');
-	// 	}
-	// 	// Condition to check when to put first and last days
-	// 	if (dayCount > 7 - numDaysFirstWeek && dayArrCount < days.length) {
-	// 		var dateDay = new Day(new Date(days[dayArrCount]));
-	// 		$(elements.monthTable)
-	// 			.find('tbody')
-	// 			.append($(`<td class="monthDay">${dateDay.display()}</td>`));
-	// 		dayArrCount++;
-	// 		// Otherwise put an empty cell
-	// 	} else {
-	// 		$(elements.monthTable).find('tbody').append($(`<td class="monthDay emptyDay"</td>`));
-	// 	}
-	// 	// End of week - end row
-	// 	if (dayCount % 7 === 0) {
-	// 		let monthTableEle = document.getElementById(elements.monthTableBody);
-	// 		monthTableEle.innerHTML = monthTableEle.innerHTML + '<tr>';
-	// 	}
-	// }
 };
 
 // Update displayed month and year
