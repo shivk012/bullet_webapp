@@ -8,7 +8,6 @@ const elements = {
 	shownYear: '#displayedYearBtn',
 	monthSelectionList: '#monthList',
 	yearSelectionList: '#yearList',
-	monthTableBody: 'monthDaysTable'
 };
 
 // Variable to keep hold of the state of the selected month year etc
@@ -117,31 +116,63 @@ const showDatesMonth = (month, year, startDayOfWeek = 1) => {
 
 	// Counter to pull from days Array
 	let dayArrCount = 0;
-	// Counter to fill all rows
-	for (let dayCount = 1; dayCount <= numWeeks * 7; dayCount++) {
-		// Start of week - new row
-		if ((dayCount - 1) % 7 === 0) {
-			let monthTableEle = document.getElementById(elements.monthTableBody);
-			monthTableEle.innerHTML = monthTableEle.innerHTML + '<tr>';
-			//$(elements.monthTable).find('tbody').append('<tr>');
+	// Counter to track empty days - i.e 7 days per week so 35 'day' elements in a 5 week month
+	let dayMonthCount = 0;
+	for (let weekCount = 1; weekCount <= numWeeks; weekCount++){
+		// Variable to store html string
+		let htmlStr = '';
+		// Start of row
+		htmlStr += '<tr>';
+		
+		// Add each day
+		// Loop 7 times
+		for (let dayCount = 1; dayCount <=7; dayCount++) {
+			dayMonthCount++;
+			// Check if enough counters for the first empty days of the week and counter less than total days
+			if (dayMonthCount > 7 - numDaysFirstWeek && dayArrCount < days.length) {
+				let dateDay = new Day(new Date(days[dayArrCount]));
+				htmlStr+=`<td class="monthDay">${dateDay.display()}</td>`;
+				dayArrCount++;
+			// Otherwise add an empty day
+			} else {
+				htmlStr += `<td class="monthDay emptyDay"</td>`;
+			}
 		}
-		// Condition to check when to put first and last days
-		if (dayCount > 7 - numDaysFirstWeek && dayArrCount < days.length) {
-			var dateDay = new Day(new Date(days[dayArrCount]));
-			$(elements.monthTable)
-				.find('tbody')
-				.append($(`<td class="monthDay">${dateDay.display()}</td>`));
-			dayArrCount++;
-			// Otherwise put an empty cell
-		} else {
-			$(elements.monthTable).find('tbody').append($(`<td class="monthDay emptyDay"</td>`));
-		}
-		// End of week - end row
-		if (dayCount % 7 === 0) {
-			let monthTableEle = document.getElementById(elements.monthTableBody);
-			monthTableEle.innerHTML = monthTableEle.innerHTML + '<tr>';
-		}
+
+		// End of row
+		htmlStr += '</tr>';
+
+		// Append string to html
+		$(elements.monthTable).find('tbody').append(htmlStr);
 	}
+
+
+
+	// // Counter to fill all rows
+	// for (let dayCount = 1; dayCount <= numWeeks * 7; dayCount++) {
+	// 	// Start of week - new row
+	// 	if ((dayCount - 1) % 7 === 0) {
+	// 		let monthTableEle = document.getElementById(elements.monthTableBody);
+	// 		monthTableEle.innerHTML = monthTableEle.innerHTML + '<tr>';
+	// 		//$(elements.monthTable).find('tbody').append('<tr>');
+	// 	}
+	// 	// Condition to check when to put first and last days
+	// 	if (dayCount > 7 - numDaysFirstWeek && dayArrCount < days.length) {
+	// 		var dateDay = new Day(new Date(days[dayArrCount]));
+	// 		$(elements.monthTable)
+	// 			.find('tbody')
+	// 			.append($(`<td class="monthDay">${dateDay.display()}</td>`));
+	// 		dayArrCount++;
+	// 		// Otherwise put an empty cell
+	// 	} else {
+	// 		$(elements.monthTable).find('tbody').append($(`<td class="monthDay emptyDay"</td>`));
+	// 	}
+	// 	// End of week - end row
+	// 	if (dayCount % 7 === 0) {
+	// 		let monthTableEle = document.getElementById(elements.monthTableBody);
+	// 		monthTableEle.innerHTML = monthTableEle.innerHTML + '<tr>';
+	// 	}
+	// }
 };
 
 // Update displayed month and year
