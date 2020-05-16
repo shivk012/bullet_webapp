@@ -1,5 +1,6 @@
 td{
     font-size: 0.75em;
+    width: 14%;
 }
 
 .calendarBtn{
@@ -18,4 +19,14 @@ td{
 
 #mnthYear{
     text-align: center;
+}
+
+.emptyDay{
+    background-color: rgba(135, 206, 250, 0.267)
+}
+.monthDay{
+    border: 1px solid lightgray;
+}
+#monthDaysTable{
+    border: 1px solid lightgrey;
 }

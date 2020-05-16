@@ -14,8 +14,11 @@
             <button id="todayBtn" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="True" autocomplete="off">Today</button>
         </td>
         <td class = "calendarBtn" id="mnthYear">
-            <button id="displayedMonthBtn" type="button" class="btn btn-link btn-lg">Month</button>
-            <button id="displayedYearBtn" type="button" class="btn btn-link btn-lg">Year</button>
+            <button id="displayedMonthBtn" type="button" class="btn btn-link btn-lg" data-toggle="dropdown">Month</button>
+            <button id="displayedYearBtn" type="button" class="btn btn-link btn-lg" data-toggle="dropdown">Year</button>
+            <ul id="monthList" class="dropdown-menu" role="menu" aria-labelledby="displayedMonthBtn"></ul>
+            <ul id="yearList" class="dropdown-menu" role="menu" aria-labelledby="displayedYearBtn"></ul>
+        
         </td>
         <td class="calendarBtn" id="switchView">
             <button id="monthViewBtn" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="True" autocomplete="off">Month</button>
