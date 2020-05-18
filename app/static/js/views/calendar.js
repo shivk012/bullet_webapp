@@ -39,6 +39,7 @@ window.addEventListener('load', () => {
 	updateShownTime();
 	// add months to dropdown
 	addMonthList(elements.monthSelectionList);
+	addYearList(elements.yearSelectionList, getDecade(calendarState.year));
 	changeMonth();
 
 });
@@ -48,6 +49,31 @@ const addMonthList = (eleId) => {
 	listOfMonths.forEach((month) => {
 		$(eleId).append(`<li role="presentation"><a role="menuitem" tableindex="-1" href="#">${month}</a></li>`);
 	});
+};
+
+// Add years to display dropdown
+const addYearList = (eleId, startYear) => {
+	// remove previous years
+	$(eleId).find('li').remove();
+	let yearList = createDecade(startYear);
+	// add each year as a li item
+	yearList.forEach((year) => {
+		$(eleId).append(`<li role="presentation"><a role="menuitem" tableindex="-1" href="#">${year}</a></li>`);
+	});
+
+	// previous and next buttons
+	$(eleId).append(`
+	<div class="dropdown-divider"></div>
+	<li>
+		<span>
+			<div class="prevDiv">
+				<button class="btn btn-light btn-sm" id="prevDecade" href="#"><</button>
+			</div>
+			<div class="nextDiv">
+				<button class="btn btn-light btn-sm" id="nextDecade" href="#">></button>
+			</div>
+		</span>
+	</li>`);
 };
 
 // Event listener to update month
@@ -62,6 +88,14 @@ const changeMonth = () => {
 	});
 };
 
+// Function to create a list of years
+const createDecade = (startYear) => {
+	let list = [];
+	for (var i = startYear; i <= startYear + 9; i++) {
+		list.push(i);
+	}
+	return list;
+};
 // Get days given a month and year. Returns array of all the dates in the format Sat Feb 01 2020 00:00:00
 // Month is 0 indexed
 const getDaysMonth = (month, year) => {
@@ -75,6 +109,11 @@ const getDaysMonth = (month, year) => {
 		date.setDate(date.getDate() + 1);
 	}
 	return days;
+};
+
+// Function to get decade of a year
+const getDecade = (year) => {
+	return Math.floor(year / 10) * 10;
 };
 
 // Get number of days in the first week of a given month using an array of days

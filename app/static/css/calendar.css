@@ -1,6 +1,5 @@
 td{
     font-size: 0.75em;
-    width: 14%;
 }
 
 .calendarBtn{
@@ -8,8 +7,10 @@ td{
     margin-bottom: 0px;
     min-width: fit-content;
 }
-
-#calendarBtnRow{
+.dayHeading{
+    width: 14%;
+}
+table#calendarBtnRow{
     width: 100%;
 }
 
@@ -24,9 +25,51 @@ td{
 .emptyDay{
     background-color: rgba(135, 206, 250, 0.267)
 }
-.monthDay{
+td.monthDay{
     border: 1px solid lightgray;
+    max-width: 14%;
 }
 #monthDaysTable{
     border: 1px solid lightgrey;
+}
+
+/*@media screen and (min-width: 600px){
+    .threeColumns{
+        -moz-column-count:3; /* Firefox */
+        /*-webkit-column-count:3; /* Safari and Chrome */
+        /*column-count:3;
+    }
+}*/
+
+#monthList{
+    width:150px;
+    border-radius: 10px;
+    padding-left: 2.5%;
+}
+#yearList{
+    width: 50px;
+    border-radius: 10px;
+    padding-left: 1%;
+    padding-right: 1%;
+    text-align: center;
+}
+
+.monthBtnDiv, .yearBtnDiv{
+    width:50%;
+}
+
+.btnDiv.container{
+    width: 49%;
+    float:left;
+}
+.right{
+    text-align: right;
+}
+.left{
+    text-align: left;
+}
+
+.prevDiv, .nextDiv{
+    width: 50%;
+    float: left;
 }

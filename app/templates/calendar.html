@@ -14,11 +14,18 @@
             <button id="todayBtn" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="True" autocomplete="off">Today</button>
         </td>
         <td class = "calendarBtn" id="mnthYear">
-            <button id="displayedMonthBtn" type="button" class="btn btn-link btn-lg" data-toggle="dropdown">Month</button>
-            <button id="displayedYearBtn" type="button" class="btn btn-link btn-lg" data-toggle="dropdown">Year</button>
-            <ul id="monthList" class="dropdown-menu" role="menu" aria-labelledby="displayedMonthBtn"></ul>
-            <ul id="yearList" class="dropdown-menu" role="menu" aria-labelledby="displayedYearBtn"></ul>
-        
+            <div class="container">
+                <div class="btnDiv container right">
+                    <button id="displayedMonthBtn" role="button" class="btn btn-link btn-lg dropdown-toggle" data-toggle="dropdown">Month</button>
+                    <ul id="monthList" class="dropdown-menu monthColumns" role="menu" aria-labelledby="displayedMonthBtn">
+                    </ul>
+                </div>
+                <div class="btnDiv container left">
+                    <button id="displayedYearBtn" type="button" class="btn btn-link btn-lg dropdown-toggle"data-toggle="dropdown">Year</button>
+                    <ul id="yearList" class="dropdown-menu yearColumns" role="menu" aria-labelledby="displayedYearBtn">
+                    </ul>
+                </div>
+            </div>
         </td>
         <td class="calendarBtn" id="switchView">
             <button id="monthViewBtn" type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="True" autocomplete="off">Month</button>
@@ -26,16 +33,18 @@
             <button id="monthViewBtn" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="True" autocomplete="off">Day</button>
         </td>
     </table>
+    </div>
+    <div class="container">
     <table class="table" id="datesTable">
         <thead>
             <tr>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
+                <th class="dayHeading">Monday</th>
+                <th class="dayHeading">Tuesday</th>
+                <th class="dayHeading">Wednesday</th>
+                <th class="dayHeading">Thursday</th>
+                <th class="dayHeading">Friday</th>
+                <th class="dayHeading">Saturday</th>
+                <th class="dayHeading">Sunday</th>
             </tr>
         </thead>
         <tbody id="monthDaysTable">
