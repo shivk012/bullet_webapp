@@ -35,12 +35,15 @@ window.addEventListener('load', () => {
 	calendarState.month = today.getMonth();
 	calendarState.fullMonth = today.toLocaleDateString('default', { month: 'long' });
 	calendarState.timeFrame = 'month';
+	calendarState.decade = getDecade(calendarState.year);
+	calendarState.displayedDecade = calendarState.decade;
 	showDatesMonth(calendarState.month, calendarState.year);
 	updateShownTime();
 	// add months to dropdown
 	addMonthList(elements.monthSelectionList);
-	addYearList(elements.yearSelectionList, getDecade(calendarState.year));
+	addYearList(elements.yearSelectionList, calendarState.decade);
 	changeMonth();
+	eventChangeDecade();
 
 });
 
@@ -67,10 +70,10 @@ const addYearList = (eleId, startYear) => {
 	<li>
 		<span>
 			<div class="prevDiv">
-				<button class="btn btn-light btn-sm" id="prevDecade" href="#"><</button>
+				<button class="btn btn-light btn-sm" id="prevDecade"><</button>
 			</div>
 			<div class="nextDiv">
-				<button class="btn btn-light btn-sm" id="nextDecade" href="#">></button>
+				<button class="btn btn-light btn-sm" id="nextDecade">></button>
 			</div>
 		</span>
 	</li>`);
@@ -96,6 +99,17 @@ const createDecade = (startYear) => {
 	}
 	return list;
 };
+
+// Event listener for prev or next decade
+const eventChangeDecade = () => {
+	$('#prevDecade').click(function (e) {
+		getDecadeYears('Prev');
+	});
+	$('#nextDecade').click(function (e) {
+		getDecadeYears('Next');
+	});
+};
+
 // Get days given a month and year. Returns array of all the dates in the format Sat Feb 01 2020 00:00:00
 // Month is 0 indexed
 const getDaysMonth = (month, year) => {
@@ -114,6 +128,19 @@ const getDaysMonth = (month, year) => {
 // Function to get decade of a year
 const getDecade = (year) => {
 	return Math.floor(year / 10) * 10;
+};
+
+// Function to update when prev or next decade is clicked
+const getDecadeYears = (prevOrNext) => {
+	let decade;
+	if (prevOrNext === 'Prev') {
+		decade = calendarState.displayedDecade - 10;
+	} else {
+		decade = calendarState.displayedDecade + 10;
+	}
+	console.log(decade);
+	calendarState.displayedDecade = decade;
+	addYearList(elements.yearSelectionList, calendarState.displayedDecade);
 };
 
 // Get number of days in the first week of a given month using an array of days
