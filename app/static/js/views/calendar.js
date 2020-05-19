@@ -43,8 +43,7 @@ window.addEventListener('load', () => {
 	addMonthList(elements.monthSelectionList);
 	addYearList(elements.yearSelectionList, calendarState.decade);
 	changeMonth();
-	eventChangeDecade();
-
+	clickYear();
 });
 
 // Add months to display dropdown
@@ -58,6 +57,8 @@ const addMonthList = (eleId) => {
 const addYearList = (eleId, startYear) => {
 	// remove previous years
 	$(eleId).find('li').remove();
+	// remove previous divider
+	$(eleId).find('.dropdown-divider').remove();
 	let yearList = createDecade(startYear);
 	// add each year as a li item
 	yearList.forEach((year) => {
@@ -77,6 +78,9 @@ const addYearList = (eleId, startYear) => {
 			</div>
 		</span>
 	</li>`);
+	// Function for clicking callbacks
+	eventChangeDecade();
+	changeYear();
 };
 
 // Event listener to update month
@@ -91,6 +95,29 @@ const changeMonth = () => {
 	});
 };
 
+// Event listener to update month
+const changeYear = () => {
+	$(elements.yearSelectionList + ' a').click(function (e) {
+		e.preventDefault();
+		addYearList(elements.yearSelectionList, calendarState.decade);
+		let newYear = $(this).text();
+		$(elements.shownYear).text(newYear);
+		calendarState.year = newYear;
+		calendarState.decade = getDecade(calendarState.year);
+		calendarState.displayedDecade = calendarState.decade;
+		showDatesMonth(calendarState.month, calendarState.year);
+	});
+};
+
+// Event listener to update decade when the year is clicked
+const clickYear = () => {
+	$(elements.shownYear).click(function (e) {
+		e.preventDefault();
+		calendarState.decade = getDecade(calendarState.year);
+		calendarState.displayedDecade = calendarState.decade;
+		addYearList(elements.yearSelectionList, calendarState.decade);
+	});
+};
 // Function to create a list of years
 const createDecade = (startYear) => {
 	let list = [];
@@ -103,9 +130,11 @@ const createDecade = (startYear) => {
 // Event listener for prev or next decade
 const eventChangeDecade = () => {
 	$('#prevDecade').click(function (e) {
+		e.stopPropagation();
 		getDecadeYears('Prev');
 	});
 	$('#nextDecade').click(function (e) {
+		e.stopPropagation();
 		getDecadeYears('Next');
 	});
 };
@@ -138,7 +167,6 @@ const getDecadeYears = (prevOrNext) => {
 	} else {
 		decade = calendarState.displayedDecade + 10;
 	}
-	console.log(decade);
 	calendarState.displayedDecade = decade;
 	addYearList(elements.yearSelectionList, calendarState.displayedDecade);
 };
