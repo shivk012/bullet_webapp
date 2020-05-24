@@ -1,6 +1,6 @@
 import time
 from app import app
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 
 
 @app.route('/')
@@ -17,3 +17,11 @@ def get_current_time():
 @app.route('/calendar')
 def show_calendar():
     return render_template('calendar.html')
+
+
+@app.route('/js/views/<path:filename>')
+def javascript_folder(filename):
+    return send_from_directory(app.config['static'],
+                               filename, as_attachment=True,
+                               mimetype='text/javascript'
+                               )
