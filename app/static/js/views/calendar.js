@@ -95,7 +95,7 @@ const changeMonth = () => {
 	});
 };
 
-// Event listener to update month
+// Event listener to update year
 const changeYear = () => {
 	$(elements.yearSelectionList + ' a').click(function (e) {
 		e.preventDefault();
