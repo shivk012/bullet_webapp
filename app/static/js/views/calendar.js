@@ -44,6 +44,7 @@ window.addEventListener('load', () => {
 	addYearList(elements.yearSelectionList, calendarState.decade);
 	changeMonth();
 	clickYear();
+	eventPrevOrNextTimeFrame();
 });
 
 // Add months to display dropdown
@@ -88,10 +89,10 @@ const changeMonth = () => {
 	$(elements.monthSelectionList + ' a').click(function (e) {
 		e.preventDefault();
 		let newMonth = $(this).text();
-		$(elements.shownMonth).text(newMonth);
 		calendarState.month = listOfMonths.indexOf(newMonth);
 		calendarState.fullMonth = newMonth;
 		showDatesMonth(calendarState.month, calendarState.year);
+		updateShownTime();
 	});
 };
 
@@ -101,11 +102,11 @@ const changeYear = () => {
 		e.preventDefault();
 		addYearList(elements.yearSelectionList, calendarState.decade);
 		let newYear = $(this).text();
-		$(elements.shownYear).text(newYear);
 		calendarState.year = newYear;
 		calendarState.decade = getDecade(calendarState.year);
 		calendarState.displayedDecade = calendarState.decade;
 		showDatesMonth(calendarState.month, calendarState.year);
+		updateShownTime();
 	});
 };
 
@@ -136,6 +137,16 @@ const eventChangeDecade = () => {
 	$('#nextDecade').click(function (e) {
 		e.stopPropagation();
 		getDecadeYears('Next');
+	});
+};
+
+// Event listener for prev or next time frame
+const eventPrevOrNextTimeFrame = () => {
+	$('#prevTimeBtn').click(function (e) {
+		prevOrNextTimeFrame('Prev');
+	});
+	$('#nextTimeBtn').click(function (e) {
+		prevOrNextTimeFrame('Next');
 	});
 };
 
@@ -198,6 +209,43 @@ const getWeekCount = (daysArr, startDayOfWeek = 1) => {
 	const numWeeks = Math.ceil(daysLeft / 7) + 1;
 
 	return numWeeks;
+};
+
+// Function for prev or next time frame
+const prevOrNextTimeFrame = (prevOrNext) => {
+	switch (calendarState.timeFrame) {
+		// if view is set to month
+		case 'month':
+			// code for clicking previous
+			if (prevOrNext === 'Prev') {
+				// check if it's the first month of the year
+				if (calendarState.month === 0) {
+					calendarState.month = 11;
+					calendarState.year -= 1;
+				} else {
+					calendarState.month -= 1;
+				}
+			} else {
+				// check if it's the last month of the year
+				if (calendarState.month === 11) {
+					calendarState.month = 0;
+					calendarState.year += 1;
+				} else {
+					calendarState.month += 1;
+				}
+			}
+			// set the full month , update calendar and text
+			calendarState.fullMonth = listOfMonths[calendarState.month];
+			showDatesMonth(calendarState.month, calendarState.year);
+			updateShownTime();
+			break;
+		case 'week':
+			// week code
+			break;
+		case 'day':
+			// day code
+			break;
+	}
 };
 
 // Update calendar to show the dates in a month
