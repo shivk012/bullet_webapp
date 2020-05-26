@@ -9,6 +9,11 @@ const elements = {
 	monthSelectionList: '#monthList',
 	yearSelectionList: '#yearList',
 	monthDaysTable: '#monthDaysTable',
+	prevDecade: '#prevDecade',
+	nextDecade: '#nextDecade',
+	prevTimeView: '#prevTimeBtn',
+	nextTimeView: '#nextTimeBtn',
+	todayBtn:'#todayBtn'
 };
 
 // Variable to keep hold of the state of the selected month year etc
@@ -45,6 +50,7 @@ window.addEventListener('load', () => {
 	changeMonth();
 	clickYear();
 	eventPrevOrNextTimeFrame();
+	eventToday();
 });
 
 // Add months to display dropdown
@@ -101,7 +107,7 @@ const changeYear = () => {
 	$(elements.yearSelectionList + ' a').click(function (e) {
 		e.preventDefault();
 		addYearList(elements.yearSelectionList, calendarState.decade);
-		let newYear = $(this).text();
+		let newYear = parseInt($(this).text());
 		calendarState.year = newYear;
 		calendarState.decade = getDecade(calendarState.year);
 		calendarState.displayedDecade = calendarState.decade;
@@ -130,11 +136,11 @@ const createDecade = (startYear) => {
 
 // Event listener for prev or next decade
 const eventChangeDecade = () => {
-	$('#prevDecade').click(function (e) {
+	$(elements.prevDecade).click(function (e) {
 		e.stopPropagation();
 		getDecadeYears('Prev');
 	});
-	$('#nextDecade').click(function (e) {
+	$(elements.nextDecade).click(function (e) {
 		e.stopPropagation();
 		getDecadeYears('Next');
 	});
@@ -142,11 +148,31 @@ const eventChangeDecade = () => {
 
 // Event listener for prev or next time frame
 const eventPrevOrNextTimeFrame = () => {
-	$('#prevTimeBtn').click(function (e) {
+	$(elements.prevTimeView).click(function (e) {
 		prevOrNextTimeFrame('Prev');
 	});
-	$('#nextTimeBtn').click(function (e) {
+	$(elements.nextTimeView).click(function (e) {
 		prevOrNextTimeFrame('Next');
+	});
+};
+
+// Event listenter to go to today
+const eventToday = () => {
+	$(elements.todayBtn).click(function (e) {
+		switch (calendarState.timeFrame) {
+			// if view is set to month
+			case 'month':
+				const today = new Date();
+				calendarState.year = today.getFullYear();
+				calendarState.month = today.getMonth();
+				calendarState.fullMonth = today.toLocaleDateString('default', { month: 'long' });
+				showDatesMonth(calendarState.month, calendarState.year);
+				updateShownTime();
+				break;
+			case 'week':
+				// code for a week 
+				break;
+		}
 	});
 };
 
