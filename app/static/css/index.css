@@ -1,0 +1,10 @@
+body{
+    background-image: url('../images/bullet\ journalling.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.jumbotron{
+    opacity: 75%;
+}

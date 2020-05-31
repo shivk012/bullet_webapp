@@ -6,8 +6,21 @@ from flask import Flask, render_template, send_from_directory
 @app.route('/')
 @app.route('/index')
 def welcome():
-    return ('Welcome to the index page')
+    return render_template('index.html')
 
+
+@app.route('/help')
+def show_main_help():
+    return('This will be the help page')
+
+@app.route('/about')
+def show_about():
+    return('This will be the about page')
+
+
+@app.route('/login')
+def login():
+    return('This will be the login page')
 
 @app.route('/time')
 def get_current_time():

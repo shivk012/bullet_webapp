@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head_block %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+{% endblock head_block %}
+
+{% block body_block %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">Welcome to Bullet App</h1>
+        <p class="lead">A web implementation of bullet journaling</p>
+        <hr class="my-2">
+        <p>Find out more about what bullet journaling is <a href='https://bulletjournal.com/pages/learn' target='_blank'>here</a></p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{{url_for('login')}}" role="button">Login</a>
+        </p>
+    </div>
+</div>
+<script type="module" src="{{url_for('static', filename='js/views/index.js')}}"</script>
+
+{% endblock body_block %}

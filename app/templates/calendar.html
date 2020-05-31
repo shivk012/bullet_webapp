@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head_block %}
-<link rel="stylesheet" href="/static/css/calendar.css">
+<link rel="stylesheet" href="{{url_for('static', filename='css/calendar.css')}}">
 {% endblock head_block %}
 
 {% block body_block %}

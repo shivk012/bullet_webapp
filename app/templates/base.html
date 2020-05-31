@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="/static/css/base.css"
   </head>
   <body>
+    <nav class="navbar navbar-expand navbar-light bg-light">
+      <div class="nav navbar-nav">
+        <a class="nav-item nav-link active" href="{{url_for('welcome')}}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="{{url_for('show_calendar')}}">Calendar</a>
+        <a class="nav-item nav-link" href="{{url_for('show_main_help')}}">Help</a>
+        <a class="nav-item nav-link" href="{{url_for('show_about')}}">About</a>
+
+      </div>
+    </nav>
     {% block body_block %}
     {% endblock body_block %}
     <!-- main javscript link-->
